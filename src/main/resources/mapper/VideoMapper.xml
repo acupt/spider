@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acupt.spider.dao.VideoDAO">
+    <resultMap id="BaseResultMap" type="com.acupt.spider.model.Video">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="web_id" jdbcType="INTEGER" property="webId"/>
+        <result column="author_id" jdbcType="INTEGER" property="authorId"/>
+        <result column="vlist_id" jdbcType="INTEGER" property="vlistId"/>
+        <result column="vid" jdbcType="VARCHAR" property="vid"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="length" jdbcType="VARCHAR" property="length"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+        <result column="uptime" jdbcType="TIMESTAMP" property="uptime"/>
+        <result column="comment" jdbcType="INTEGER" property="comment"/>
+        <result column="click" jdbcType="INTEGER" property="click"/>
+        <result column="share" jdbcType="INTEGER" property="share"/>
+        <result column="danmu" jdbcType="INTEGER" property="danmu"/>
+        <result column="favorite" jdbcType="INTEGER" property="favorite"/>
+        <result column="like" jdbcType="INTEGER" property="like"/>
+        <result column="dislike" jdbcType="INTEGER" property="dislike"/>
+        <result column="coin" jdbcType="INTEGER" property="coin"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="typeidweb" jdbcType="INTEGER" property="typeidweb"/>
+        <result column="type_id" jdbcType="INTEGER" property="typeId"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="uid" jdbcType="VARCHAR" property="uid"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="copyright" jdbcType="VARCHAR" property="copyright"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="director" jdbcType="VARCHAR" property="director"/>
+        <result column="actor" jdbcType="VARCHAR" property="actor"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		id, web_id, author_id, vlist_id, vid, url, title, length,
+		time, uptime,
+		comment,
+		click, share, danmu, favorite, `like`, `dislike`,
+		coin, type, typeidweb,
+		type_id, author,
+		uid, tag, copyright, img,
+		director, actor
+	</sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from video
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+    <insert id="insert" parameterType="com.acupt.spider.model.Video" useGeneratedKeys="true" keyProperty="id">
+		insert into video (id, web_id,
+		author_id,
+		vlist_id, vid, url,
+		title, length, time,
+		uptime, comment,
+		click,
+		share, danmu, favorite,
+		`like`, `dislike`, coin,
+		type, typeidweb,
+		type_id,
+		author, uid, tag, copyright,
+		img, director, actor
+		)
+		values
+		(#{id,jdbcType=INTEGER}, #{webId,jdbcType=INTEGER},
+		#{authorId,jdbcType=INTEGER},
+		#{vlistId,jdbcType=INTEGER},
+		#{vid,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR}, #{length,jdbcType=VARCHAR},
+		#{time,jdbcType=TIMESTAMP},
+		#{uptime,jdbcType=TIMESTAMP},
+		#{comment,jdbcType=INTEGER}, #{click,jdbcType=INTEGER},
+		#{share,jdbcType=INTEGER}, #{danmu,jdbcType=INTEGER},
+		#{favorite,jdbcType=INTEGER},
+		#{like,jdbcType=INTEGER},
+		#{dislike,jdbcType=INTEGER}, #{coin,jdbcType=INTEGER},
+		#{type,jdbcType=VARCHAR}, #{typeidweb,jdbcType=INTEGER},
+		#{typeId,jdbcType=INTEGER},
+		#{author,jdbcType=VARCHAR},
+		#{uid,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR},
+		#{copyright,jdbcType=VARCHAR},
+		#{img,jdbcType=VARCHAR},
+		#{director,jdbcType=VARCHAR}, #{actor,jdbcType=VARCHAR}
+		)
+	</insert>
+    <insert id="insertSelective" parameterType="com.acupt.spider.model.Video" useGeneratedKeys="true" keyProperty="id">
+        insert into video
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="webId != null">
+                web_id,
+            </if>
+            <if test="authorId != null">
+                author_id,
+            </if>
+            <if test="vlistId != null">
+                vlist_id,
+            </if>
+            <if test="vid != null">
+                vid,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="length != null">
+                length,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="uptime != null">
+                uptime,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="click != null">
+                click,
+            </if>
+            <if test="share != null">
+                share,
+            </if>
+            <if test="danmu != null">
+                danmu,
+            </if>
+            <if test="favorite != null">
+                favorite,
+            </if>
+            <if test="like != null">
+                `like`,
+            </if>
+            <if test="dislike != null">
+                `dislike`,
+            </if>
+            <if test="coin != null">
+                coin,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="typeidweb != null">
+                typeidweb,
+            </if>
+            <if test="typeId != null">
+                type_id,
+            </if>
+            <if test="author != null">
+                author,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="tag != null">
+                tag,
+            </if>
+            <if test="copyright != null">
+                copyright,
+            </if>
+            <if test="img != null">
+                img,
+            </if>
+            <if test="director != null">
+                director,
+            </if>
+            <if test="actor != null">
+                actor,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="webId != null">
+                #{webId,jdbcType=INTEGER},
+            </if>
+            <if test="authorId != null">
+                #{authorId,jdbcType=INTEGER},
+            </if>
+            <if test="vlistId != null">
+                #{vlistId,jdbcType=INTEGER},
+            </if>
+            <if test="vid != null">
+                #{vid,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="length != null">
+                #{length,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uptime != null">
+                #{uptime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="comment != null">
+                #{comment,jdbcType=INTEGER},
+            </if>
+            <if test="click != null">
+                #{click,jdbcType=INTEGER},
+            </if>
+            <if test="share != null">
+                #{share,jdbcType=INTEGER},
+            </if>
+            <if test="danmu != null">
+                #{danmu,jdbcType=INTEGER},
+            </if>
+            <if test="favorite != null">
+                #{favorite,jdbcType=INTEGER},
+            </if>
+            <if test="like != null">
+                #{like,jdbcType=INTEGER},
+            </if>
+            <if test="dislike != null">
+                #{dislike,jdbcType=INTEGER},
+            </if>
+            <if test="coin != null">
+                #{coin,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="typeidweb != null">
+                #{typeidweb,jdbcType=INTEGER},
+            </if>
+            <if test="typeId != null">
+                #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="author != null">
+                #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="tag != null">
+                #{tag,jdbcType=VARCHAR},
+            </if>
+            <if test="copyright != null">
+                #{copyright,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="director != null">
+                #{director,jdbcType=VARCHAR},
+            </if>
+            <if test="actor != null">
+                #{actor,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.acupt.spider.model.Video">
+        update video
+        <set>
+            <if test="webId != null">
+                web_id = #{webId,jdbcType=INTEGER},
+            </if>
+            <if test="authorId != null">
+                author_id = #{authorId,jdbcType=INTEGER},
+            </if>
+            <if test="vlistId != null">
+                vlist_id = #{vlistId,jdbcType=INTEGER},
+            </if>
+            <if test="vid != null">
+                vid = #{vid,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="length != null">
+                length = #{length,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uptime != null">
+                uptime = #{uptime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="comment != null">
+                comment = #{comment,jdbcType=INTEGER},
+            </if>
+            <if test="click != null">
+                click = #{click,jdbcType=INTEGER},
+            </if>
+            <if test="share != null">
+                share = #{share,jdbcType=INTEGER},
+            </if>
+            <if test="danmu != null">
+                danmu = #{danmu,jdbcType=INTEGER},
+            </if>
+            <if test="favorite != null">
+                favorite = #{favorite,jdbcType=INTEGER},
+            </if>
+            <if test="like != null">
+                `like` = #{like,jdbcType=INTEGER},
+            </if>
+            <if test="dislike != null">
+                `dislike` = #{dislike,jdbcType=INTEGER},
+            </if>
+            <if test="coin != null">
+                coin = #{coin,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="typeidweb != null">
+                typeidweb = #{typeidweb,jdbcType=INTEGER},
+            </if>
+            <if test="typeId != null">
+                type_id = #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="tag != null">
+                tag = #{tag,jdbcType=VARCHAR},
+            </if>
+            <if test="copyright != null">
+                copyright = #{copyright,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                img = #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="director != null">
+                director = #{director,jdbcType=VARCHAR},
+            </if>
+            <if test="actor != null">
+                actor = #{actor,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.acupt.spider.model.Video">
+		update video
+		set
+		web_id = #{webId,jdbcType=INTEGER},
+		author_id =
+		#{authorId,jdbcType=INTEGER},
+		vlist_id = #{vlistId,jdbcType=INTEGER},
+		vid = #{vid,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		title =
+		#{title,jdbcType=VARCHAR},
+		length = #{length,jdbcType=VARCHAR},
+		time =
+		#{time,jdbcType=TIMESTAMP},
+		uptime = #{uptime,jdbcType=TIMESTAMP},
+		comment = #{comment,jdbcType=INTEGER},
+		click =
+		#{click,jdbcType=INTEGER},
+		share = #{share,jdbcType=INTEGER},
+		danmu =
+		#{danmu,jdbcType=INTEGER},
+		favorite = #{favorite,jdbcType=INTEGER},
+		`like` = #{like,jdbcType=INTEGER},
+		`dislike` = #{dislike,jdbcType=INTEGER},
+		coin = #{coin,jdbcType=INTEGER},
+		type = #{type,jdbcType=VARCHAR},
+		typeidweb = #{typeidweb,jdbcType=INTEGER},
+		type_id =
+		#{typeId,jdbcType=INTEGER},
+		author = #{author,jdbcType=VARCHAR},
+		uid =
+		#{uid,jdbcType=VARCHAR},
+		tag = #{tag,jdbcType=VARCHAR},
+		copyright =
+		#{copyright,jdbcType=VARCHAR},
+		img = #{img,jdbcType=VARCHAR},
+		director =
+		#{director,jdbcType=VARCHAR},
+		actor = #{actor,jdbcType=VARCHAR}
+		where id
+		= #{id,jdbcType=INTEGER}
+	</update>
+
+    <select id="exist" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        where web_id = #{webId,jdbcType=INTEGER} and vid =
+        #{vid,jdbcType=VARCHAR}
+    </select>
+</mapper>

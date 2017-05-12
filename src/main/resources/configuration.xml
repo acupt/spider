@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+        <typeAlias alias="Video" type="com.acupt.spider.model.Video"/>
+        <typeAlias alias="Author" type="com.acupt.spider.model.Author"/>
+    </typeAliases>
+
+    <!-- 别名 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/vhas?characterEncoding=utf8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="000000"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- userMapper.xml装载进来 同等于把“dao”的实现装载进来 -->
+        <mapper resource="mapper/VideoMapper.xml"/>
+        <mapper resource="mapper/VideoUpdateMapper.xml"/>
+        <mapper resource="mapper/AuthorMapper.xml"/>
+        <mapper resource="mapper/AuthorUpdateMapper.xml"/>
+    </mappers>
+</configuration>

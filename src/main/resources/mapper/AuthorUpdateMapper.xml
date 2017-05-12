@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.acupt.spider.dao.AuthorUpdateDAO">
+    <resultMap id="BaseResultMap" type="com.acupt.spider.model.Author">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="web_id" property="webId" jdbcType="INTEGER"/>
+        <result column="uid" property="uid" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="VARCHAR"/>
+        <result column="fans" property="fans" jdbcType="INTEGER"/>
+        <result column="attention" property="attention" jdbcType="INTEGER"/>
+        <result column="works" property="works" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        <result column="regtime" property="regtime" jdbcType="TIMESTAMP"/>
+        <result column="lasttime" property="lasttime" jdbcType="TIMESTAMP"/>
+        <result column="uptime" property="uptime" jdbcType="TIMESTAMP"/>
+        <result column="slogan" property="slogan" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		id, web_id, uid, name, gender, age, url, level, fans,
+		attention, works,
+		birthday,
+		regtime, lasttime, uptime, slogan,
+		description, address, img
+	</sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from authorupdate
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		authorupdate
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+    <insert id="insert" parameterType="com.acupt.spider.model.Author">
+		insert into authorupdate (id,
+		web_id, uid,
+		name, gender, age,
+		url, level, fans, attention,
+		works,
+		birthday, regtime,
+		lasttime, uptime, slogan,
+		description, address, img
+		)
+		values (#{id,jdbcType=INTEGER}, #{webId,jdbcType=INTEGER},
+		#{uid,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{gender,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
+		#{url,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR},
+		#{fans,jdbcType=INTEGER}, #{attention,jdbcType=INTEGER},
+		#{works,jdbcType=INTEGER}, #{birthday,jdbcType=DATE},
+		#{regtime,jdbcType=TIMESTAMP},
+		#{lasttime,jdbcType=TIMESTAMP},
+		#{uptime,jdbcType=TIMESTAMP}, #{slogan,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+		#{img,jdbcType=VARCHAR}
+		)
+	</insert>
+    <insert id="insertSelective" parameterType="com.acupt.spider.model.Author">
+        insert into authorupdate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="webId != null">
+                web_id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="fans != null">
+                fans,
+            </if>
+            <if test="attention != null">
+                attention,
+            </if>
+            <if test="works != null">
+                works,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="regtime != null">
+                regtime,
+            </if>
+            <if test="lasttime != null">
+                lasttime,
+            </if>
+            <if test="uptime != null">
+                uptime,
+            </if>
+            <if test="slogan != null">
+                slogan,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="img != null">
+                img,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="webId != null">
+                #{webId,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=VARCHAR},
+            </if>
+            <if test="fans != null">
+                #{fans,jdbcType=INTEGER},
+            </if>
+            <if test="attention != null">
+                #{attention,jdbcType=INTEGER},
+            </if>
+            <if test="works != null">
+                #{works,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=DATE},
+            </if>
+            <if test="regtime != null">
+                #{regtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lasttime != null">
+                #{lasttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uptime != null">
+                #{uptime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="slogan != null">
+                #{slogan,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                #{img,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.acupt.spider.model.Author">
+        update authorupdate
+        <set>
+            <if test="webId != null">
+                web_id = #{webId,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=VARCHAR},
+            </if>
+            <if test="fans != null">
+                fans = #{fans,jdbcType=INTEGER},
+            </if>
+            <if test="attention != null">
+                attention = #{attention,jdbcType=INTEGER},
+            </if>
+            <if test="works != null">
+                works = #{works,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=DATE},
+            </if>
+            <if test="regtime != null">
+                regtime = #{regtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lasttime != null">
+                lasttime = #{lasttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uptime != null">
+                uptime = #{uptime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="slogan != null">
+                slogan = #{slogan,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                img = #{img,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.acupt.spider.model.Author">
+		update
+		authorupdate
+		set
+		web_id = #{webId,jdbcType=INTEGER},
+		uid =
+		#{uid,jdbcType=VARCHAR},
+		name
+		= #{name,jdbcType=VARCHAR},
+		gender =
+		#{gender,jdbcType=VARCHAR},
+		age =
+		#{age,jdbcType=INTEGER},
+		url =
+		#{url,jdbcType=VARCHAR},
+		level =
+		#{level,jdbcType=VARCHAR},
+		fans =
+		#{fans,jdbcType=INTEGER},
+		attention =
+		#{attention,jdbcType=INTEGER},
+		works = #{works,jdbcType=INTEGER},
+		birthday =
+		#{birthday,jdbcType=DATE},
+		regtime =
+		#{regtime,jdbcType=TIMESTAMP},
+		lasttime =
+		#{lasttime,jdbcType=TIMESTAMP},
+		uptime =
+		#{uptime,jdbcType=TIMESTAMP},
+		slogan = #{slogan,jdbcType=VARCHAR},
+		description =
+		#{description,jdbcType=VARCHAR},
+		address =
+		#{address,jdbcType=VARCHAR},
+		img = #{img,jdbcType=VARCHAR}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+</mapper>
