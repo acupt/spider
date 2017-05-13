@@ -131,7 +131,9 @@ public class BilibiliRule implements Rule {
         author.setAttention(data.getInteger("attention"));
         author.setGender(data.getString("sex"));
         author.setLevel(data.getJSONObject("level_info").getInteger("current_level").toString());
-        author.setRegtime(timeFormat.get().format(new Date(data.getLong("regtime") * 1000)));
+        if (data.containsKey("regtime")) {
+            author.setRegtime(timeFormat.get().format(new Date(data.getLong("regtime") * 1000)));
+        }
         author.setSlogan(data.getString("sign"));
         author.setDescription(data.getString("description"));
         author.setAttentions((List<Object>) data.get("attentions"));
