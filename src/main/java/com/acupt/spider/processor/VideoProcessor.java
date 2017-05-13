@@ -162,7 +162,7 @@ public class VideoProcessor implements PageProcessor {
         Spider.create(processor)/*设置自定义爬虫*/
                 .setDownloader(processor.postDownloader)/*设置自定义下载器*/
                 .addUrl(url)/*种子Url*/
-                .thread(1)/*开启线程数*/
+                .thread(3)/*开启线程数*/
                 .run();/*启动爬虫*/
     }
 }

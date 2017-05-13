@@ -121,8 +121,9 @@ public class BilibiliRule implements Rule {
         author.setName(data.getString("name"));
         author.setAddress(data.getString("place"));
         author.setBirthday(data.getString("birthday"));
-        if (author.getBirthday() == null || author.getBirthday().contains("0000-00-00"))
+        if (author.getBirthday() == null || author.getBirthday().startsWith("0000")) {
             author.setBirthday(null);
+        }
         if (author.getBirthday() != null) {
             author.setAge(Rule.getAgeByBirthday(author.getBirthday()));
         }
