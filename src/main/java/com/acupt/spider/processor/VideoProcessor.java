@@ -156,12 +156,12 @@ public class VideoProcessor implements PageProcessor {
     }
 
     public static void main(String[] args) {
-//        String url = "http://space.bilibili.com/ajax/member/getSubmitVideos?mid=8011552";
-        String url = "http://space.bilibili.com/ajax/member/GetInfo?mid=21848241";//种子URL
+        String url1 = "http://space.bilibili.com/ajax/member/getSubmitVideos?mid=8011552";
+        String url2 = "http://space.bilibili.com/ajax/member/GetInfo?mid=21848241";//种子URL
         VideoProcessor processor = new VideoProcessor();
         Spider.create(processor)/*设置自定义爬虫*/
                 .setDownloader(processor.postDownloader)/*设置自定义下载器*/
-                .addUrl(url)/*种子Url*/
+                .addUrl(url1, url2)/*种子Url*/
                 .thread(3)/*开启线程数*/
                 .run();/*启动爬虫*/
     }
