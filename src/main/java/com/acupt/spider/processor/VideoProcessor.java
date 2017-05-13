@@ -32,7 +32,14 @@ import java.util.Map;
  */
 public class VideoProcessor implements PageProcessor {
 
+    /**
+     * 获取用户的视频列表，GET
+     */
     public static final String BILIBILI_VIDEO_INFO = "http://space\\.bilibili\\.com/ajax/member/getSubmitVideos\\?.*";
+
+    /**
+     * 获取用户资料，POST
+     */
     public static final String BILIBILI_AUTHOR_INFO = "http://space\\.bilibili\\.com/ajax/member/GetInfo\\?mid=[0-9]+";
 
     private Logger webmagicLogger = LoggerFactory.getLogger("webmagic");
@@ -51,8 +58,9 @@ public class VideoProcessor implements PageProcessor {
         protected HttpUriRequest getHttpUriRequest(Request request, Site site, Map<String, String> headers, HttpHost proxy) {
             String url = request.getUrl();
             if (url.indexOf("GetInfo") < 0) {
-                return super.getHttpUriRequest(request, site, headers, proxy);
+                return super.getHttpUriRequest(request, site, headers, proxy);//按照父类的原逻辑
             }
+            //获取用户资料要用POST
             int i = url.indexOf('?');
             if (i > 0) {
                 HttpPost httpPost = new HttpPost(url.substring(0, i));
@@ -77,7 +85,7 @@ public class VideoProcessor implements PageProcessor {
                 }
                 return httpPost;
             }
-            return super.getHttpUriRequest(request, site, headers, proxy);
+            return super.getHttpUriRequest(request, site, headers, proxy);//按照父类的原逻辑
         }
     };
 
@@ -87,6 +95,11 @@ public class VideoProcessor implements PageProcessor {
                 .addHeader("Content-Type", "application/x-www-form-urlencoded");
     }
 
+    /**
+     * 处理每个爬取到的网址
+     *
+     * @param page 包含页面的URL和页面内容（源码）
+     */
     @Override
     public void process(Page page) {
         try {
@@ -97,42 +110,40 @@ public class VideoProcessor implements PageProcessor {
     }
 
     private void doProcess(Page page) throws Exception {
-        webmagicLogger.info("process: " + page.getUrl());
-        BilibiliRule rule = new BilibiliRule();
+        webmagicLogger.info("process: " + page.getUrl());//打印日志
+        BilibiliRule rule = new BilibiliRule();//处理规则类，根据页面返回内容生成对象
         if (page.getUrl().regex(BILIBILI_AUTHOR_INFO).match()) {
-            Author author = rule.jsonToAuthor(page.getRawText());
-            System.out.println(author);
+            Author author = rule.jsonToAuthor(page.getRawText());//根据页面内容提取作者对象
             if (author != null) {
                 if (author.getAttentions() != null && !author.getAttentions().isEmpty()) {
                     for (Object uid : author.getAttentions()) {
-                        page.addTargetRequest("http://space.bilibili.com/ajax/member/GetInfo?mid=" + uid);
+                        page.addTargetRequest("http://space.bilibili.com/ajax/member/GetInfo?mid=" + uid);//关注用户加入待爬取URL队列，告诉框架一会爬这个网址
                     }
                 }
-                page.addTargetRequest(
-                        "http://space.bilibili.com/ajax/member/getSubmitVideos?mid=" + author.getUid());
-                authorService.updateAuthor(author);
+                page.addTargetRequest("http://space.bilibili.com/ajax/member/getSubmitVideos?mid=" + author.getUid());//告诉框架一会爬去这个网址（该用户的视频列表）
+                authorService.updateAuthor(author);//把这个用户存到数据库
             }
         } else if (page.getUrl().regex(BILIBILI_VIDEO_INFO).match()) {
             String url = page.getUrl().toString();
             if (url.contains("tid=")) {
-                List<Video> videos = rule.jsonToVideo(page.getRawText(), page.getUrl().regex("tid=[0-9]+").get().substring(4));
+                List<Video> videos = rule.jsonToVideo(page.getRawText(), page.getUrl().regex("tid=[0-9]+").get().substring(4));//获取视频列表
                 if (!videos.isEmpty()) {
                     int i = url.indexOf("&page=");
                     if (i > 0) {
                         try {
                             int pageNo = Integer.valueOf(url.substring(i + "&page=".length())) + 1;
                             url = url.substring(0, i) + "&page=" + pageNo;
-                            page.addTargetRequest(url);
+                            page.addTargetRequest(url);//告诉框架一会爬取下一页的视频列表
                         } catch (Exception e) {
                             webmagicLogger.error("video page for url: " + url, e);
                         }
                     }
-                    videoService.updateVideo(videos);
+                    videoService.updateVideo(videos);//视频存到数据库
                 }
             } else {
-                List<String> types = rule.jsonToTypeIds(page.getRawText());
+                List<String> types = rule.jsonToTypeIds(page.getRawText());//获取这个作者所有视频类型
                 for (String t : types) {
-                    page.addTargetRequest(url + "&tid=" + t + "&page=1");
+                    page.addTargetRequest(url + "&tid=" + t + "&page=1");//告诉框架一会"单独"爬取这些类型的视频
                 }
             }
         } else {
@@ -146,8 +157,12 @@ public class VideoProcessor implements PageProcessor {
 
     public static void main(String[] args) {
 //        String url = "http://space.bilibili.com/ajax/member/getSubmitVideos?mid=8011552";
-        String url = "http://space.bilibili.com/ajax/member/GetInfo?mid=21848241";
+        String url = "http://space.bilibili.com/ajax/member/GetInfo?mid=21848241";//种子URL
         VideoProcessor processor = new VideoProcessor();
-        Spider.create(processor).setDownloader(processor.postDownloader).addUrl(url).thread(1).run();
+        Spider.create(processor)/*设置自定义爬虫*/
+                .setDownloader(processor.postDownloader)/*设置自定义下载器*/
+                .addUrl(url)/*种子Url*/
+                .thread(1)/*开启线程数*/
+                .run();/*启动爬虫*/
     }
 }
