@@ -12,7 +12,7 @@
         </layout>
     </appender>
     <logger name="root"> <!-- 设置域名限制，即zcw.log域及以下的日志均输出到下面对应的通道中 -->
-        <level value="debug"/> <!-- 设置级别 -->
+        <level value="info"/> <!-- 设置级别 -->
         <appender-ref ref="rootAppender"/> <!-- 与前面的通道id相对应 -->
     </logger>
 
@@ -27,10 +27,11 @@
         </layout>
     </appender>
     <logger name="us.codecraft.webmagic.downloader.HttpClientDownloader"> <!-- 设置域名限制，即zcw.log域及以下的日志均输出到下面对应的通道中 -->
-        <level value="debug"/> <!-- 设置级别 -->
+        <level value="info"/> <!-- 设置级别 -->
         <appender-ref ref="webmagicAppender"/> <!-- 与前面的通道id相对应 -->
     </logger>
     <root> <!-- 设置接收所有输出的通道 -->
+        <level value="info"/>
         <appender-ref ref="rootAppender"/> <!-- 与前面的通道id相对应 -->
     </root>
 </log4j:configuration>
