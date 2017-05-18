@@ -8,7 +8,7 @@
         <param name="MaxBackupIndex" value="10"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{yyyy-MM-dd HH:mm:ss},%p,%C{1},%M,%m%n"/> <!-- 设置输出文件项目和格式 -->
+                   value="%d{yyyy-MM-dd HH:mm:ss,SSS},%p,%C{1},%M,%m%n"/> <!-- 设置输出文件项目和格式 -->
         </layout>
     </appender>
     <logger name="root"> <!-- 设置域名限制，即zcw.log域及以下的日志均输出到下面对应的通道中 -->
@@ -23,7 +23,7 @@
         <param name="MaxBackupIndex" value="10"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{yyyy-MM-dd HH:mm:ss},%p,%C{1},%M,%m%n"/> <!-- 设置输出文件项目和格式 -->
+                   value="%d{yyyy-MM-dd HH:mm:ss,SSS},%p,%C{1},%M,%m%n"/> <!-- 设置输出文件项目和格式 -->
         </layout>
     </appender>
     <logger name="us.codecraft.webmagic.downloader.HttpClientDownloader"> <!-- 设置域名限制，即zcw.log域及以下的日志均输出到下面对应的通道中 -->
