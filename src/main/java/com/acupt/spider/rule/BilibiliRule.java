@@ -29,7 +29,7 @@ public class BilibiliRule implements Rule {
 
         @Override
         protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return new SimpleDateFormat("yyyy-MM-dd");
         }
     };
 
